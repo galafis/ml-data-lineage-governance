@@ -1,0 +1,47 @@
+# ============================================================
+# ML Data Lineage & Governance — Configuration
+# ============================================================
+
+governance:
+  default_framework: lgpd          # gdpr | lgpd | hipaa | ccpa
+  enable_pii_scanning: true
+  enable_retention_checks: true
+
+compliance:
+  frameworks:
+    - lgpd
+    - gdpr
+
+  retention_policies:
+    signup_date: 730               # days
+    last_login: 365
+    transaction_date: 1825         # 5 years for financial records
+
+  pii_scan:
+    scan_sample_size: 1000
+    redact_in_reports: true
+    column_name_heuristics: true
+    regex_patterns: true
+
+quality:
+  default_severity: error          # error | warning | info
+  fail_pipeline_on_error: true
+  max_null_rate: 0.05              # 5 %
+  min_completeness: 0.95
+
+schema:
+  compatibility_mode: backward     # backward | forward | full | none
+  rename_detection_threshold: 0.80
+  track_history: true
+
+catalog:
+  auto_register_on_ingestion: true
+  require_owner: true
+  require_description: false
+
+logging:
+  level: INFO                      # DEBUG | INFO | WARNING | ERROR
+  json_format: false
+  log_file: logs/governance.log
+  max_bytes: 10485760              # 10 MB
+  backup_count: 5

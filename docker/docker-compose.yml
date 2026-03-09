@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  governance:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: ml-governance
+    volumes:
+      - ../config:/app/config:ro
+      - ../logs:/app/logs
+    environment:
+      - PYTHONPATH=/app
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
